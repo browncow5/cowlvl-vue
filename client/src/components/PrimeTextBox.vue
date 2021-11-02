@@ -3,16 +3,10 @@
     <h1>{{ msg }}</h1>
     <input v-model="inputNumber" type="number" @input="isPrime(inputNumber)">
     <p>{{ inputNumber }} is prime : {{ prime }}</p>
-    <button v-on:click="helloWorld(inputNumber)">Check if Prime.</button>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-
-const API_BASE = location.hostname === 'localhost'
-  ? 'http://localhost:8081'
-  : location.origin
 
 export default {
   name: 'TextBox',
@@ -44,21 +38,6 @@ export default {
               this.prime = false;
             }
           }
-    },
-    async helloWorld (inputNumber) {
-        inputNumber
-        try {
-            const apiResp = await axios.get(`${API_BASE}/api`)
-            const responseTime = apiResp.headers['x-response-time']
-            const data = apiResp.data
-            return {
-            responseTime,
-            ...data,
-            }
-        } catch (err) {
-            console.log(err)
-            // catch err
-        }
     },
   }
 }
