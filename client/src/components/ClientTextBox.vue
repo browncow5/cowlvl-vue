@@ -1,5 +1,5 @@
 <template>
-  <div class="textbox">
+  <div class="clienttextbox">
     <h1>{{ msg }}</h1>
     <input v-model="inputNumber" type="number" @input="isPrime(inputNumber)">
     <p>{{ inputNumber }} is prime : {{ prime }}</p>
@@ -9,7 +9,7 @@
 <script>
 
 export default {
-  name: 'TextBox',
+  name: 'ClientTextBox',
   props: {
     msg: String
   },
