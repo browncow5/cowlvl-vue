@@ -1,9 +1,16 @@
 'use strict';
 
+// Enable DD APM
+// This line must come before importing any instrumented module.
+const tracer = require('dd-trace').init({
+  logInjection: true
+});
+
 const express = require('express');
-const bodyParser = require("body-parser");
+//const bodyParser = require("body-parser");
 //const cors = require("cors");
-const path = require('path');
+const resolve = require('path');
+
 
 // Constants
 const PORT = 8080;
@@ -20,7 +27,7 @@ app.use(express.static(dir));
 //};
 
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve(dir + "index.html"));
+  res.sendFile(resolve.resolve(dir + "index.html"));
 });
 
 app.get('/api', (req, res) => {

@@ -1,6 +1,38 @@
 version: "3.9"
 services:
+
+  agent:
+    image: "datadog/agent:latest"
+    environment:
+      - DD_API_KEY=${API_KEY}
+      # APM
+      - DD_APM_ENABLED=true 
+      - DD_APM_NON_LOCAL_TRAFFIC=true 
+      # Logs
+      - DD_LOGS_ENABLED=true 
+      - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
+      # Processes
+      - DD_PROCESS_AGENT_ENABLED=true
+      # NPM
+      #- DD_SYSTEM_PROBE_ENABLED=true
+      #- DD_PROCESS_AGENT_ENABLED=true
+
+    ports: 
+      - "8126:8126"
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock:ro 
+      - /proc/:/host/proc/:ro 
+      - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro 
+      - /opt/datadog-agent/run:/opt/datadog-agent/run:rw 
+    # NPM
+      - /sys/kernel/debug:/sys/kernel/debug
+
   server:
     build: .
     ports:
       - "8080:8080"
+    environment:
+      - DD_ENV=test
+      - DD_AGENT_HOST=agent
+    depends_on:
+      - "agent"
