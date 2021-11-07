@@ -1,7 +1,6 @@
 .DS_Store
 node_modules/
-client/dist/
-client/node_modules/
+
 
 # local env files
 .env.local
@@ -21,5 +20,9 @@ yarn-error.log*
 *.sln
 *.sw*
 
-
+# Project specific
+client/dist/
 client/node_modules/
+server/node_modules/
+client/package-lock.json
+server/package-lock.json
