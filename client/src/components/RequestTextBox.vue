@@ -3,11 +3,17 @@
     <h1>{{ msg }}</h1>
     <input v-model="inputNumber" type="number" @input="setNewMsg()">
     <p>{{ message }}</p>
-    <button v-on:click="isPrime(inputNumber)">Check if Prime.</button>
+    <button v-on:click="isPrimeApi(inputNumber)">Check if Prime.</button>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
+const API_BASE = location.hostname === 'localhost'
+  ? 'http://localhost:8080'
+  : location.origin
+
 export default {
   name: 'RequestTextBox',
   props: {
@@ -18,12 +24,34 @@ export default {
     return {
       inputNumber: 2,
       count: 0,
-      prime: false,
+      prime: true,
       message: "Click button to update"
     }
   },
 
   methods: {
+    async isPrimeApi (inputNumber) {
+      try {
+        console.log(inputNumber)
+        const apiResp = await axios.post(`${API_BASE}/prime`, {num: inputNumber})
+
+        const responseTime = apiResp.headers['x-response-time']
+        const data = apiResp.data
+
+        // Set text on button
+        this.prime = data.isPrime
+        this.message = inputNumber + " is prime : " + data.isPrime
+
+        return {
+          responseTime,
+          ...data,
+        }
+      } catch (err) {
+        console.log(err)
+        // catch err
+      }
+    },
+
     isPrime: function (inputNumber) {
         this.prime = false; this.message = this.inputNumber + " is prime : false";
         if (inputNumber <= 0) {
