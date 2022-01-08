@@ -59,10 +59,10 @@ app.get('/api', (req, res) => {
 app.post('/prime', (req, res) => {
   log.info(req.body);
   const num = req.body.num
-  var isPrime = isPrime(num)
+  var isPrimeVar = isPrime(num)
     
   res.status(200);
-  res.send({ isPrime: isPrime });
+  res.send({ isPrime: isPrimeVar });
 
 });
 
