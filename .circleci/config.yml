@@ -22,7 +22,7 @@ workflows:
   build_and_push_image:
     jobs:
       - aws-ecr/build-and-push-image:
-          repo: "${AWS_RESOURCE_NAME_PREFIX}"
+          repo: "${REPO}"
           tag: "${CIRCLE_SHA1}"
           dockerfile: Dockerfile
       
