@@ -25,4 +25,4 @@ workflows:
           repo: "${REPO}"
           tag: "${CIRCLE_SHA1}"
           dockerfile: Dockerfile
-      
+    
