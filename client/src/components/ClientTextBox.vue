@@ -18,7 +18,7 @@ export default {
     return {
       inputNumber: 2,
       count: 0,
-      prime: false
+      prime: true
     }
   },
 
