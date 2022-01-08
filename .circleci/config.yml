@@ -10,13 +10,8 @@ jobs:
           app-dir: ~/project/server
           cache-path: ~/project/node_modules
           override-ci-command: npm install
-      - run:
-          name: sudo npm install
-          command: sudo npm install -g npm@latest
-      - run:
-          app-dir: ~/project/server
-          name: npm run test
-          command: npm run test
+      - run: sudo npm install -g npm@latest
+      - run: npm run test --prefix ~/server
 workflows:
   test_my_app:
     jobs:
