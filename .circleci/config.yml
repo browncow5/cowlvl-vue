@@ -18,5 +18,8 @@ jobs:
           name: Install Dependencies
           command: npm install ./server
       - run:
+          name: List Scripts
+          command: npm run
+      - run:
           name: Run Tests
           command: npm test
