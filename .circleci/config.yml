@@ -25,4 +25,4 @@ workflows:
           repo: "${AWS_RESOURCE_NAME_PREFIX}"
           tag: "${CIRCLE_SHA1}"
           dockerfile: Dockerfile
-          
+        
