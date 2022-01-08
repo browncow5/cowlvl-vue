@@ -1,25 +1,17 @@
-# This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
-version: 2.1
-
-# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
-# See: https://circleci.com/docs/2.0/orb-intro/
+version: '2.1'
 orbs:
-  node: circleci/node@4.7
-  aws-ecr: circleci/aws-ecr@7.3.0
-
+  node: circleci/node@5.0
 jobs:
-  build:
-    working_directory: ~/redux-async
-    docker:
-      - image: circleci/node:16
+  test:
+    executor: node/default
     steps:
       - checkout
-      - run:
-          name: Install Dependencies
-          command: npm install ./server
-      - run:
-          name: List Scripts
-          command: npm run
-      - run:
-          name: Run Tests
-          command: npm test
+      - node/install-packages:
+          cache-path: ~/project/node_modules
+          override-ci-command: npm install
+      - run: sudo npm install -g npm@latest
+      - run: npm run test
+workflows:
+  test_my_app:
+    jobs:
+      - test
