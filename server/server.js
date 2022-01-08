@@ -59,24 +59,7 @@ app.get('/api', (req, res) => {
 app.post('/prime', (req, res) => {
   log.info(req.body);
   const num = req.body.num
-  var isPrime = false
-  
-  if (num <= 0) {
-      isPrime = false;
-  }
-  else if(num < 5) {
-    if (num == 1) {isPrime = false;}
-    if (num == 2) {isPrime = true;}
-    if (num == 3) {isPrime = true;}
-    if (num == 4) {isPrime = false;}
-  }
-  else {
-    isPrime = true;
-    for(var i = 2; i <= Math.sqrt(num); i++)
-      if(num % i === 0) {
-        isPrime = false;
-      }
-    }
+  var isPrime = isPrime(num)
     
   res.status(200);
   res.send({ isPrime: isPrime });
@@ -85,4 +68,25 @@ app.post('/prime', (req, res) => {
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
+
+//functions
+function isPrime(num) {
+  if (num <= 0) {
+    return false;
+  }
+  else if(num < 5) {
+    if (num == 1) {return false;}
+    if (num == 2) {return true;}
+    if (num == 3) {return true;}
+    if (num == 4) {return false;}
+  }
+  else {
+    //isPrime = true;
+    for(var i = 2; i <= Math.sqrt(num); i++)
+      if(num % i === 0) {
+        return false;
+      }
+      return true;
+  }
+}
 
