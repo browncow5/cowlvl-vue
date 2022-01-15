@@ -22,7 +22,13 @@ workflows:
   build_and_push_image:
     jobs:
       - aws-ecr/build-and-push-image:
-          repo: "${REPO}"
+          repo: "${MY_APP_PREFIX}"
           tag: "${CIRCLE_SHA1}"
           dockerfile: Dockerfile
+      - aws-ecs/deploy-service-update:
+          cluster-name: '${MY_APP_PREFIX}'
+          container-image-name-updates: 'container=${AWS_ECS_SERVICE},tag=${CIRCLE_SHA1}'
+          family: '${AWS_ECS_SERVICE}'
+          requires:
+            - aws-ecr/build-and-push-image
     
