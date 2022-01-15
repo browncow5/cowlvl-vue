@@ -10,7 +10,8 @@ datadogRum.init({
     // version: '1.0.0',
     sampleRate: 100,
     trackInteractions: true,
-    defaultPrivacyLevel: 'allow'
+    defaultPrivacyLevel: 'allow',
+    allowedTracingOrigins: ["https://cowlvl.io", /https:\/\/.*\.cowlvl\.io/]
 });
     
 datadogRum.startSessionReplayRecording();
