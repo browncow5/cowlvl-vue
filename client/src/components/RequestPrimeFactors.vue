@@ -1,9 +1,9 @@
 <template>
-  <div class="requesttextbox">
+  <div class="requestprimefactors">
     <h1>{{ msg }}</h1>
     <input v-model="inputNumber" type="number" @input="setNewMsg()">
     <p>{{ message }}</p>
-    <button v-on:click="isPrimeApi(inputNumber)">Check if Prime.</button>
+    <button v-on:click="getPrimeFactorsApi(inputNumber)">Get Prime Factors.</button>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ const API_BASE = location.hostname === 'localhost'
   : location.origin
 
 export default {
-  name: 'RequestTextBox',
+  name: 'RequestRequestPrimeFactors',
   props: {
     msg: String
   },
@@ -30,17 +30,17 @@ export default {
   },
 
   methods: {
-    async isPrimeApi (inputNumber) {
+    async getPrimeFactorsApi (inputNumber) {
       try {
         console.log(inputNumber)
-        const apiResp = await axios.post(`${API_BASE}/prime`, {num: inputNumber})
+        const apiResp = await axios.post(`${API_BASE}/getPrimeFactors`, {num: inputNumber})
 
         const responseTime = apiResp.headers['x-response-time']
         const data = apiResp.data
 
         // Set text on button
-        this.prime = data.isPrime
-        this.message = inputNumber + " is prime : " + data.isPrime
+        this.factors = data.factors
+        this.message = inputNumber + " has prime factors : " + data.factors
 
         return {
           responseTime,

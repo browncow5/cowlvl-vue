@@ -66,6 +66,16 @@ app.post('/prime', (req, res) => {
 
 });
 
+app.post('/getPrimeFactors', (req, res) => {
+  log.info(req.body);
+  const num = req.body.num
+  var factorsVar = getPrimeFactors(num)
+    
+  res.status(200);
+  res.send({ factors: factorsVar });
+
+});
+
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
 
@@ -88,5 +98,21 @@ function isPrime(num) {
       }
       return true;
   }
+}
+
+function getPrimeFactors(n){
+  var factors = [], 
+      divisor = 2;
+  
+  while(n>=2){
+    if(n % divisor == 0){
+       factors.push(divisor); 
+       n= n / divisor;
+    }
+    else{
+      divisor++;
+    }     
+  }
+  return factors;
 }
 
