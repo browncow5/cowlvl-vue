@@ -22,10 +22,18 @@ workflows:
   build_and_push_image:
     jobs:
       - aws-ecr/build-and-push-image:
+          filters:
+            branches:
+              only:
+                - master
           repo: "${MY_APP_PREFIX}"
           tag: "${CIRCLE_SHA1}"
           dockerfile: Dockerfile
       - aws-ecs/deploy-service-update:
+          filters:
+            branches:
+              only:
+                - master
           requires:
             - aws-ecr/build-and-push-image
           cluster-name: '${MY_APP_PREFIX}'
