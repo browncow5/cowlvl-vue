@@ -27,8 +27,8 @@ workflows:
           dockerfile: Dockerfile
       - aws-ecs/deploy-service-update:
           cluster-name: '${MY_APP_PREFIX}'
-          container-image-name-updates: 'container=${AWS_ECS_SERVICE},tag=${CIRCLE_SHA1}'
-          family: '${AWS_ECS_SERVICE}'
+          container-image-name-updates: 'container=${AWS_ECS_TASK},tag=${CIRCLE_SHA1}'
+          family: '${AWS_ECS_TASK}'
           requires:
             - aws-ecr/build-and-push-image
     
